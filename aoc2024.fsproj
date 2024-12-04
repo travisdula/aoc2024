@@ -6,15 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="One.fs" />
+    <Compile Include="Solvers/One.fs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Two.fs" />
+    <Compile Include="Solvers/Two.fs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Three.fs" />
+    <Compile Include="Solvers/Three.fs" />
   </ItemGroup>
 
   <ItemGroup>
