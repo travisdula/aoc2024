@@ -5,8 +5,10 @@ let handleDay day solver =
     0
 
 let solve day =
+    let handler = handleDay day
     match day with
-    | "1" -> handleDay day One.solve
+    | "1" -> handler One.solve
+    | "2" -> handler Two.solve
     | _ -> 1
 
 [<EntryPoint>]
