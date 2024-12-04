@@ -9,6 +9,7 @@ let solve day =
     match day with
     | "1" -> handler One.solve
     | "2" -> handler Two.solve
+    | "3" -> handler Three.solve
     | _ -> 1
 
 [<EntryPoint>]

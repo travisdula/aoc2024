@@ -14,6 +14,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="Three.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="Program.fs" />
   </ItemGroup>
 
