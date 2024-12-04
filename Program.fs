@@ -10,6 +10,7 @@ let solve day =
     | "1" -> handler One.solve
     | "2" -> handler Two.solve
     | "3" -> handler Three.solve
+    | "4" -> handler Four.solve
     | _ -> 1
 
 [<EntryPoint>]
