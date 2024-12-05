@@ -22,7 +22,7 @@ let parse (lines: string seq) =
     (rules, pages)
 
 let correctlyOrdered table update =
-    let updateSet = Seq.fold (fun a b -> Set.add b a) Set.empty update
+    let updateSet = Set.ofSeq update
 
     let f (seen, valid) elem =
         let nextSeen = Set.add elem seen
@@ -48,7 +48,11 @@ let rulesMap rules =
 
 let a (rules, pages) =
     let map = rulesMap rules
-    pages |> Seq.filter (correctlyOrdered map) |> Seq.map (middle >> int) |> Seq.sum
+
+    pages
+    |> Seq.filter (correctlyOrdered <| rulesMap rules)
+    |> Seq.map (middle >> int)
+    |> Seq.sum
 
 let kahns S edges =
     let rec go (S: 'a Set) (L: 'a list) (graph: ('a * 'a) seq) =

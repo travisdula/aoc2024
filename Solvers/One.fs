@@ -1,7 +1,7 @@
 module One
 
 let parse (lines: seq<string>) =
-    lines |> Seq.map (fun x -> x.Split("   ") |> Seq.map int)
+    lines |> Seq.map (_.Split("   ") >> Seq.map int)
 
 let a left right =
     Seq.zip (Seq.sort left) (Seq.sort right)
@@ -21,7 +21,7 @@ let b left right =
 let solve lines =
     let parsed = parse lines
     let left = parsed |> Seq.map Seq.head
-    let right = parsed |> Seq.map (fun s -> s |> Seq.tail |> Seq.head)
+    let right = parsed |> Seq.map (Seq.tail >> Seq.head)
     let ansA = a left right
     let ansB = b left right
     ansA :: ansB :: []

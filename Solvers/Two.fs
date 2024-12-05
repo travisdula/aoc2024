@@ -1,7 +1,7 @@
 module Two
 
 let parse (lines: seq<string>) =
-    lines |> Seq.map (fun x -> x.Split(" ") |> Seq.map int)
+    lines |> Seq.map (_.Split(" ") >> Seq.map int)
 
 let isSafe report =
     let pairs = Seq.pairwise report
