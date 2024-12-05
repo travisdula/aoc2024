@@ -41,9 +41,8 @@ let middle s =
 let rulesMap rules =
     let folder table (before, after) =
         let prior =
-            match Map.tryFind after table with
-            | Some others -> others
-            | None -> Set.empty
+            Map.tryFind after table
+            |> Option.defaultValue Set.empty
         Map.add after (Set.add before prior) table
     Seq.fold folder Map.empty rules
 
