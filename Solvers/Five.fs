@@ -47,8 +47,6 @@ let rulesMap rules =
     Seq.fold folder Map.empty rules
 
 let a (rules, pages) =
-    let map = rulesMap rules
-
     pages
     |> Seq.filter (correctlyOrdered <| rulesMap rules)
     |> Seq.map (middle >> int)
