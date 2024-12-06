@@ -9,26 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Solvers/One.fs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Solvers/Two.fs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Solvers/Three.fs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Solvers/Four.fs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Solvers/Five.fs" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <Compile Include="Solvers/*.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
