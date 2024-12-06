@@ -1,4 +1,5 @@
-﻿let getData day = "data/" + day |> System.IO.File.ReadLines
+﻿let getData day =
+    "data/" + day |> System.IO.File.ReadLines
 
 let handleDay day solver =
     getData day |> solver |> List.map (printfn "%d") |> ignore
@@ -13,6 +14,7 @@ let solve day =
     | "3" -> handler Three.solve
     | "4" -> handler Four.solve
     | "5" -> handler Five.solve
+    | "6" -> handler Six.solve
     | _ -> 1
 
 [<EntryPoint>]
