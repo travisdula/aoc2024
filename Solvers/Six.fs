@@ -62,9 +62,9 @@ let b lab =
     let labWithBlock loc =
         Map.add loc '#' lab |> loop (Up, startPos) Set.empty
 
-    lab
-    |> Map.filter (fun k v -> v = '.' && Option.isNone <| labWithBlock k)
-    |> Map.count
+    match loop (Up, startPos) Set.empty lab with
+    | None -> failwith "guard could not escape"
+    | Some s -> Set.map snd s |> Set.filter (labWithBlock >> Option.isNone) |> Set.count
 
 let solve lines =
     let parsed = parse lines
