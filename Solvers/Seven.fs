@@ -52,4 +52,4 @@ let solve lines =
     printfn "%A" ansA |> ignore
     let ansB = b parsed
     printfn "%A" ansB |> ignore
-    ansA :: ansB :: [] |> List.map int
+    ansA :: ansB :: []
