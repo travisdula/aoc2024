@@ -20,6 +20,7 @@ let solve day =
     | "5" -> handler Five.solve
     | "6" -> handler Six.solve
     | "7" -> handleDay64 day Seven.solve
+    | "8" -> handler Eight.solve
     | _ -> 1
 
 [<EntryPoint>]
