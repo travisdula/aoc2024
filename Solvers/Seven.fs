@@ -49,7 +49,5 @@ let b =
 let solve lines =
     let parsed = parse lines
     let ansA = a parsed
-    printfn "%A" ansA |> ignore
     let ansB = b parsed
-    printfn "%A" ansB |> ignore
     ansA :: ansB :: []
