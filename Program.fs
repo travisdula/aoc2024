@@ -1,12 +1,25 @@
 ﻿let getData day =
     "data/" + day |> System.IO.File.ReadLines
 
+let getBothData day =
+    let short = "data/" + day + "_short" |> System.IO.File.ReadLines
+    let long = "data/" + day |> System.IO.File.ReadLines
+    (short, long)
+
 let handleDay day solver =
-    getData day |> solver |> List.map (printfn "%d") |> ignore
+    getData day |> solver |> List.iter (printfn "%d")
     0
 
 let handleDay64 day (solver: string seq -> int64 list) =
-    getData day |> solver |> List.map (printfn "%d") |> ignore
+    getData day |> solver |> List.iter (printfn "%d")
+    0
+
+let multiHandler day solver =
+    let (short, long) = getBothData day
+    let (ashort, bshort) = solver short
+    printfn "Day %A (short): %A %A" (int day) ashort bshort
+    let (afull, bfull) = solver long
+    printfn "Day %A (full): %A %A" (int day) afull bfull
     0
 
 let solve day =
@@ -22,6 +35,7 @@ let solve day =
     | "7" -> handleDay64 day Seven.solve
     | "8" -> handler Eight.solve
     | "9" -> handleDay64 day Nine.solve
+    | "10" -> multiHandler day Ten.solve
     | _ -> 1
 
 [<EntryPoint>]

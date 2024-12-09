@@ -84,7 +84,7 @@ let a disk =
         |> Seq.toList
         |> List.rev
 
-    let valid = withoutEmpty |> Seq.length
+    let valid = withoutEmpty |> Seq.length |> int64
     let state = ([], withoutEmpty, valid)
 
     disk
