@@ -31,6 +31,47 @@ let rearrange (result, backwards, count) elem =
     | _, Free, Filled x:: xs -> (x::result, xs, count - 1L)
     | _ -> failwith "impossible"
            
+let removeTrailingFree disk =
+    match Seq.last disk with
+    | FreeBlocks _ -> Seq.take (Seq.length disk - 1) disk
+    | _ -> disk
+
+let blocksId =
+    function
+    | FreeBlocks len -> 0L
+    | FilledBlocks (i, len) -> i
+
+let blockId =
+    function
+    | Free -> 0L
+    | Filled i -> i
+
+let stringifyBlock =
+    function
+    | Free -> "."
+    | Filled i -> string i
+
+let atLeastNFree n = 
+    function
+    | FreeBlocks x -> x >= n
+    | _ -> false
+
+let seqTryFindIndexItem pred s =
+    match Seq.tryFindIndex pred s with
+    | None -> None
+    | Some index ->
+        Some (index, Seq.item index s)
+
+let clean disk =
+    let cleaner state elem =
+        match elem with
+        | FilledBlocks (_, _) -> elem :: state
+        | FreeBlocks 0L -> state
+        | FreeBlocks n ->
+            match state with
+            | (FreeBlocks m) :: xs -> (FreeBlocks (n + m)) :: xs
+            | _ -> (FreeBlocks n) :: state
+    Seq.fold cleaner [] disk |> List.rev |> Seq.ofList
 
 let a disk =
     let flatDisk = disk |> seqify
@@ -43,8 +84,40 @@ let a disk =
     |> List.mapi (fun i x -> (int64 i) * x)
     |> List.sum
 
-let b inp =
-    0L
+let b disk =
+    let rec loop defrag i =
+        if i = 0 then defrag
+        else
+            let newI = i - 1
+            match seqTryFindIndexItem (blocksId >> (=) i) defrag with
+            | None -> loop defrag newI
+            | Some (toMoveIndex, FilledBlocks (_, lenFilled)) ->
+                match seqTryFindIndexItem (atLeastNFree lenFilled) defrag with
+                | None -> loop defrag newI
+                | Some (freeIndex, FreeBlocks lenFree) ->
+                    if freeIndex < toMoveIndex
+                    then
+                        let newDefrag =
+                            defrag
+                            |> Seq.updateAt freeIndex (FilledBlocks (i, lenFilled))
+                            |> Seq.updateAt toMoveIndex (FreeBlocks lenFilled)
+                            |> Seq.insertAt (freeIndex + 1) (FreeBlocks (lenFree - lenFilled))
+                            |> clean
+                        loop newDefrag newI
+                    else
+                        loop defrag newI
+                | _ -> failwith "impossible finding free"
+            | _ -> failwith "impossible finding block"
+    let defragged =
+        disk
+        |> Seq.maxBy blocksId
+        |> blocksId
+        |> int
+        |> loop (removeTrailingFree disk)
+        |> seqify
+    defragged
+    |> Seq.mapi (fun i x -> (int64 i) * (blockId x))
+    |> Seq.sum
 
 let solve lines =
     let parsed = parse lines
