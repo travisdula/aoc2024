@@ -5,7 +5,7 @@ let handleDay day solver =
     getData day |> solver |> List.map (printfn "%d") |> ignore
     0
 
-let handleDay64 day solver =
+let handleDay64 day (solver: string seq -> int64 list) =
     getData day |> solver |> List.map (printfn "%d") |> ignore
     0
 
@@ -21,6 +21,7 @@ let solve day =
     | "6" -> handler Six.solve
     | "7" -> handleDay64 day Seven.solve
     | "8" -> handler Eight.solve
+    | "9" -> handleDay64 day Nine.solve
     | _ -> 1
 
 [<EntryPoint>]
