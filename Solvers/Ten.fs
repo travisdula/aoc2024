@@ -42,7 +42,6 @@ let rating map pos height =
             |> List.sum
 
     let s = loop pos height
-    printfn "score(%A) = %A" pos s |> ignore
     s
 
 let a map =
