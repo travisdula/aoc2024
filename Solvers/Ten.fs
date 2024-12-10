@@ -44,21 +44,19 @@ let rating map pos height =
     let s = loop pos height
     s
 
-let a map =
+let genSol ratingFunc map = 
     map
     |> Map.filter (fun k v -> v = 0)
-    |> Map.map (score map)
+    |> Map.map (ratingFunc map)
     |> Map.toSeq
     |> Seq.map snd
     |> Seq.sum
 
+let a map =
+    genSol score map
+
 let b map =
-    map
-    |> Map.filter (fun k v -> v = 0)
-    |> Map.map (rating map)
-    |> Map.toSeq
-    |> Seq.map snd
-    |> Seq.sum
+    genSol rating map
 
 let solve input =
     let parsed = parse input
