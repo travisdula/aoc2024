@@ -40,8 +40,6 @@ let b stones =
     let map = stones |> Seq.map (fun x -> (x, 1L)) |> Map.ofSeq
 
     let folder state i =
-        printfn "%d %A" i state
-
         state
         |> Map.toSeq
         |> Seq.collect blinkMapping
