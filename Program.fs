@@ -36,10 +36,11 @@ let solve day =
     | "8" -> handler Eight.solve
     | "9" -> handleDay64 day Nine.solve
     | "10" -> multiHandler day Ten.solve
+    | "11" -> multiHandler day Eleven.solve
     | _ -> 1
 
 [<EntryPoint>]
 let main args =
-    match args |> Array.toList with
-    | x :: [] -> solve x
+    match args with
+    | [| x |] -> solve x
     | _ -> 1
