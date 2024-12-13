@@ -37,6 +37,8 @@ let solve day =
     | "9" -> handleDay64 day Nine.solve
     | "10" -> multiHandler day Ten.solve
     | "11" -> multiHandler day Eleven.solve
+    | "12" -> multiHandler day Twelve.solve
+    | "13" -> multiHandler day Thirteen.solve
     | _ -> 1
 
 [<EntryPoint>]
